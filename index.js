@@ -3,29 +3,22 @@
 
 function getDogImages(num) {
   let url = 'https://dog.ceo/api/breeds/image/random/' + num;
-  console.log(url);
   fetch(url)
     .then(response => response.json())
-    .then(responseJson => console.log(responseJson))
-      //displayResults(responseJson))
-
-
+    .then(responseJson => displayResults(responseJson))
     .catch(error => alert('Something went wrong. Try again later.'));
 }
 
-// function verifyNum(num) {
-//   return(num >= 1 && num <= 50);
-// }
 
-// function displayResults(responseJson) {
-//   console.log(responseJson);
-//   //replace the existing image with the new one
-//   $('.results-img').replaceWith(
-//     `<img src="${responseJson.message}" class="results-img">`
-//   )
-//   //display the results section
-//   $('.results').removeClass('hidden');
-// }
+function displayResults(responseJson) {
+  //replace the existing image with the new one
+  $('.results-img').empty();
+  responseJson.message.forEach(response => {
+    $('.results-img').append(`<img src="${response}" class="results-img">`);
+  });
+  //display the results section
+  $('.results').removeClass('hidden');
+}
 
 function watchForm() {
   $('form').submit(event => {
@@ -33,7 +26,6 @@ function watchForm() {
     let numImgs = $('.numberInput').val();
 
     getDogImages(numImgs);
-    console.log(getDogImages(numImgs));
   });
 }
 
